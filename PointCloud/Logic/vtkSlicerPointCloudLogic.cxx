@@ -26,6 +26,11 @@
 #include <vtkNew.h>
 #include <vtkObjectFactory.h>
 
+#include "vtkMRMLPointCloudNode.h"
+#include "vtkMRMLPointCloudDisplayNode.h"
+#include "vtkMRMLPointCloudStorageNode.h"
+
+
 // STD includes
 #include <cassert>
 
@@ -62,6 +67,16 @@ void vtkSlicerPointCloudLogic::SetMRMLSceneInternal(vtkMRMLScene * newScene)
 void vtkSlicerPointCloudLogic::RegisterNodes()
 {
   assert(this->GetMRMLScene() != 0);
+  vtkMRMLScene * scene = this->GetMRMLScene();
+  if(!scene)
+    {
+    return;
+    }
+
+  scene->RegisterNodeClass(vtkNew<vtkMRMLPointCloudNode>().GetPointer());
+  scene->RegisterNodeClass(vtkNew<vtkMRMLPointCloudDisplayNode>().GetPointer());
+  scene->RegisterNodeClass(vtkNew<vtkMRMLPointCloudStorageNode>().GetPointer());
+
 }
 
 //---------------------------------------------------------------------------
